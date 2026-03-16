@@ -313,7 +313,10 @@ const initDemoData = () => {
   console.log(`Demo data initialized: ${courses.length} courses, ${resources.length} resources`);
 };
 
-initAdmin();
+// 确保 admin 初始化完成后再导出（避免异步竞态）
+initAdmin().then(() => {
+  console.log('Admin user ready');
+});
 initDemoData();
 
 console.log('Using in-memory database for demo');

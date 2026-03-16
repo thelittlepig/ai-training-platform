@@ -90,8 +90,8 @@ export const login = async (req: Request, res: Response) => {
     console.log('[LOGIN] Generating JWT token...');
     const jwtSecret: string = process.env.JWT_SECRET || 'test-secret';
     const rawExpiry = process.env.JWT_EXPIRES_IN || '7d';
-    const cleanExpiry = rawExpiry.replace(/['"]/g, '');
-    const jwtOptions: SignOptions = { expiresIn: cleanExpiry as any };
+    const cleanExpiry = rawExpiry.replace(/['"]/g, '') || '7d';
+    const jwtOptions: SignOptions = { expiresIn: '7d' }; // 硬编码兜底，避免环境变量格式问题
     const token = jwt.sign(
       { id: user.id, role: user.role },
       jwtSecret,
