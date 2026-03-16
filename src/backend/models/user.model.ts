@@ -1,6 +1,6 @@
 import { query } from '../db';
 import { User, UserRole } from '../../shared/types';
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 
 export const createUser = async (
   name: string,
@@ -8,7 +8,7 @@ export const createUser = async (
   password: string,
   inviteCode?: string
 ): Promise<User> => {
-  const passwordHash = await bcrypt.hash(password, 10);
+  const passwordHash = await bcryptjs.hash(password, 10);
 
   // 如果提供了有效的邀请码，直接激活账号
   const status = inviteCode === 'cll123' ? 'active' : 'pending';
@@ -35,7 +35,7 @@ export const verifyPassword = async (email: string, password: string): Promise<U
   const user = result.rows[0];
   if (!user) return null;
 
-  const isValid = await bcrypt.compare(password, user.password_hash);
+  const isValid = await bcryptjs.compare(password, user.password_hash);
   if (!isValid) return null;
 
   delete user.password_hash;

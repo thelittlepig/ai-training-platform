@@ -12,19 +12,24 @@ const approvals: any[] = [];
 const downloads: any[] = [];
 
 // 初始化默认管理员账号
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs';
 const initAdmin = async () => {
-  const adminPassword = await bcrypt.hash('admin123', 10);
-  users.push({
-    id: 'admin-001',
-    name: '系统管理员',
-    email: 'admin@example.com',
-    password_hash: adminPassword,
-    role: 'admin',
-    status: 'active',
-    created_at: new Date(),
-  });
-  console.log('Default admin created: admin@example.com / admin123');
+  try {
+    const adminPassword = await bcryptjs.hash('admin123', 10);
+    users.push({
+      id: 'admin-001',
+      name: '系统管理员',
+      email: 'admin@example.com',
+      password_hash: adminPassword,
+      role: 'admin',
+      status: 'active',
+      created_at: new Date(),
+    });
+    console.log('Default admin created: admin@example.com / admin123');
+  } catch (error) {
+    console.error('Failed to initialize admin:', error);
+    throw error;
+  }
 };
 
 // 初始化演示数据
