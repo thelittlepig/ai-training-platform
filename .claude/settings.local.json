@@ -23,7 +23,10 @@
       "Bash(ssh:*)",
       "Bash(git push:*)",
       "mcp__plugin_playwright_playwright__browser_console_messages",
-      "mcp__plugin_playwright_playwright__browser_network_requests"
+      "mcp__plugin_playwright_playwright__browser_network_requests",
+      "mcp__plugin_playwright_playwright__browser_type",
+      "Bash(npm uninstall:*)",
+      "Bash(cat:*)"
     ]
   }
 }
